@@ -7,6 +7,7 @@
             <thead>
                 <th>id</th>
                 <th>title</th>
+                <th>author</th>
                 <th>tools</th>
             </thead>
             @foreach($posts as $post)
@@ -17,7 +18,9 @@
                     <td>
                         <a href="{{ route('post.show', $post) }}">{{ $post->title }}</a>
                     </td>
+                    <td>{{ optional($post->user)->name }}</td>
                     <td>
+                        @if(optional($post->user)->id === Auth::id())
                         <form action="{{ route('post.destroy', $post) }}" method="post" name="form">
                             @csrf
                             @method('delete')
@@ -26,6 +29,7 @@
                                 <button type="submit" class="btn btn-sm btn-outline-danger">delete</button>
                             </div>
                         </form>
+                        @endif
                     </td>
                 </tr>
             @endforeach

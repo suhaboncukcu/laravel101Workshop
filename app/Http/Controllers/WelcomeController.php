@@ -12,7 +12,7 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::query()->simplePaginate();
+        $posts = Post::query()->orderBy('created_at', 'DESC')->simplePaginate();
 
         return view('welcome', compact('posts'));
     }
